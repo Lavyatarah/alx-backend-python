@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
-"""Contains a coroutine that delays a certain amount of time and returns it"""
+""" a python module to returns 10 random numbers using async comprehension"""
+from typing import List
+async_generator = __import__('0-async_generator').async_generator
 
-import asyncio
-import random
 
-
-async def wait_random(max_delay: int = 10) -> float:
+async def async_comprehension() -> List[float]:
     """
-    Returns a random float between 0 and max_delay
-    Args:
-        max_delay: The maximum delay to return
+    async_comprehension- function to return 10 random numbers
+    Arguments:
+        no arguments
     Returns:
-        A random float between 0 and max_delay
+        10 random numbers
     """
-    rand = random.uniform(0, max_delay)
-    await asyncio.sleep(rand)
-    return rand
+    rslt = [i async for i in async_generator()]
+    return rslt

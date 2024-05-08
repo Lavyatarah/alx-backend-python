@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Contains a coroutine that delays a certain amount of time and returns it"""
-
-import asyncio
+""" a python module to loop 10 times """
 import random
+import asyncio
+from typing import Generator
 
 
-async def wait_random(max_delay: int = 10) -> float:
+async def async_generator() -> Generator[float, None, None]:
     """
-    Returns a random float between 0 and max_delay
-    Args:
-        max_delay: The maximum delay to return
+    async_generator - function to loop 10 times
+    Arguments:
+        no arguments
     Returns:
-        A random float between 0 and max_delay
+        nothing
     """
-    rand = random.uniform(0, max_delay)
-    await asyncio.sleep(rand)
-    return rand
+    for i in range(10):
+        await asyncio.sleep(1)
+        yield random.uniform(0, 10)
