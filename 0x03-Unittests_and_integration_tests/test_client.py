@@ -10,7 +10,7 @@ from utils import access_nested_map, get_json, memoize
 
 class TestAccessNestedMap(unittest.TestCase):
     """
-    Class that inherits from unittest.TestCase
+    class that inherits from unittest.TestCase
     """
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
@@ -19,7 +19,7 @@ class TestAccessNestedMap(unittest.TestCase):
     ])
     def test_access_nested_map(self, nested_map, path, expected):
         """
-        Method to test that the method returns what it is supposed to.
+        method to test that the method returns what it is supposed to.
         """
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
@@ -29,7 +29,7 @@ class TestAccessNestedMap(unittest.TestCase):
     ])
     def test_access_nested_map_exception(self, nested_map, path):
         """
-        Test that a KeyError is raised for
+        test that a KeyError is raised for
         the following inputs (use @parameterized.expand)
         """
         with self.assertRaises(KeyError):
@@ -38,7 +38,7 @@ class TestAccessNestedMap(unittest.TestCase):
 
 class TestGetJson(unittest.TestCase):
     """
-    Implement the TestGetJson.test_get_json
+    implement the TestGetJson.test_get_json
     method to test that utils.get_json returns the expected result.
     """
     @parameterized.expand([
@@ -47,15 +47,16 @@ class TestGetJson(unittest.TestCase):
     ])
     def test_get_json(self, url, payload):
         """
-        Method to test that the method returns what it is supposed to.
+        method to test that the method returns what it is supposed to.
         """
         class Mocked(Mock):
             """
-            Class that inherits from Mock
+            class that inherits from Mock
             """
+
             def json(self):
                 """
-                JSON returning a payload
+                json returning a payload
                 """
                 return payload
 
@@ -65,13 +66,13 @@ class TestGetJson(unittest.TestCase):
 
 
 class TestMemoize(unittest.TestCase):
-    ''' Memoize unittest '''
+    ''' memoize unittest '''
 
     def test_memoize(self):
-        ''' Memoize test '''
+        ''' memoize test '''
 
         class TestClass:
-            ''' Self descriptive '''
+            ''' self descriptive '''
 
             def a_method(self):
                 return 42
@@ -84,8 +85,4 @@ class TestMemoize(unittest.TestCase):
             spec = TestClass()
             spec.a_property
             spec.a_property
-            mocked.assert_called_once()
-
-if __name__ == "__main__":
-    unittest.main()
-
+            mocked.asset_called_once()
