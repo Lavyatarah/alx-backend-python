@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-
-""" parametize a unit test """
-
+"""
+Parameterize a unit test
+"""
 import unittest
 from parameterized import parameterized
-from unittest.mock import patch Mock
+from unittest.mock import patch, Mock
 from utils import access_nested_map, get_json, memoize
 
+
 class TestAccessNestedMap(unittest.TestCase):
-      """
-    class that inherits from unittest.TestCase
+    """
+    Class that inherits from unittest.TestCase
     """
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
@@ -18,7 +19,7 @@ class TestAccessNestedMap(unittest.TestCase):
     ])
     def test_access_nested_map(self, nested_map, path, expected):
         """
-        method to test that the method returns what it is supposed to.
+        Method to test that the method returns what it is supposed to.
         """
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
@@ -28,17 +29,16 @@ class TestAccessNestedMap(unittest.TestCase):
     ])
     def test_access_nested_map_exception(self, nested_map, path):
         """
-        test that a KeyError is raised for
-        the following inputs (use @parameterized.expand)
+        Test that a KeyError is raised for the following inputs.
         """
-        with self.assertRaises(KeyError):
+        with self.assertRaises(KeyError) as cm:
             access_nested_map(nested_map, path)
+        self.assertEqual(str(cm.exception), f"KeyError('{path[-1]}')")
 
 
 class TestGetJson(unittest.TestCase):
     """
-    implement the TestGetJson.test_get_json
-    method to test that utils.get_json returns the expected result.
+    Test class for get_json function
     """
     @parameterized.expand([
         ("http://example.com", {"payload": True}),
@@ -46,33 +46,26 @@ class TestGetJson(unittest.TestCase):
     ])
     def test_get_json(self, url, payload):
         """
-        method to test that the method returns what it is supposed to.
+        Method to test that the method returns what it is supposed to.
         """
-        class Mocked(Mock):
-            """
-            class that inherits from Mock
-            """
-
+        class MockedResponse(Mock):
             def json(self):
-                """
-                json returning a payload
-                """
                 return payload
 
-        with patch("requests.get") as MockClass:
-            MockClass.return_value = Mocked()
+        with patch("requests.get", return_value=MockedResponse()) as mock_get:
             self.assertEqual(get_json(url), payload)
+            mock_get.assert_called_once_with(url)
 
 
 class TestMemoize(unittest.TestCase):
-    ''' memoize unittest '''
-
+    """
+    Test class for memoize decorator
+    """
     def test_memoize(self):
-        ''' memoize test '''
-
+        """
+        Test method for memoize decorator
+        """
         class TestClass:
-            ''' self descriptive '''
-
             def a_method(self):
                 return 42
 
@@ -80,8 +73,13 @@ class TestMemoize(unittest.TestCase):
             def a_property(self):
                 return self.a_method()
 
-        with patch.object(TestClass, 'a_method') as mocked:
-            spec = TestClass()
-            spec.a_property
-            spec.a_property
-            mocked.asset_called_once()
+        with patch.object(TestClass, 'a_method', return_value=42) as mock_method:
+            instance = TestClass()
+            self.assertEqual(instance.a_property, 42)
+            self.assertEqual(instance.a_property, 42)
+            mock_method.assert_called_once()
+
+
+if __name__ == "__main__":
+    unittest.main()
+
