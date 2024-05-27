@@ -18,8 +18,8 @@ class TestGithubOrgClient(unittest.TestCase):
     Test the GithubOrgClient class methods
     """
     @parameterized.expand([
-        ("google"),
-        ("abc")
+        ("google", {'login': "google"}),
+        ("abc", {'login': "abc"})
     ])
     @patch('client.get_json', return_value={"payload": True})
     def test_org(self, org, mock_org):
